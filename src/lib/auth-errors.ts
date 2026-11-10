@@ -21,6 +21,8 @@ export function authErrorMessage(error: unknown): string {
     if (error.code && byCode[error.code]) return byCode[error.code];
     // Sin respuesta del servidor: fallo de red.
     if (error.name === 'AuthRetryableFetchError') return strings.errors.network;
+    // Error no previsto: se muestra el código para poder diagnosticarlo.
+    return `${strings.errors.generic} (${error.code ?? error.status ?? error.name})`;
   }
   return strings.errors.generic;
 }
