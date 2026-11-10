@@ -9,10 +9,10 @@ App móvil (iOS y Android) de fantasy para un equipo de balonmano real.
 - Las notas se convierten en puntos, y cada mánager suma los puntos de los jugadores de su alineación en esa jornada.
 
 ## Roles
-- **Mánager**: cualquier usuario. Compra/vende jugadores, fija su alineación, ve clasificaciones.
-- **Entrenador**: puede crear partidos/jornadas y poner notas a los jugadores que han jugado.
-- **Admin**: gestiona la plantilla de jugadores reales, precios, temporadas y roles.
-(Un mismo usuario puede ser jugador real del equipo y mánager a la vez.)
+Solo juega la gente del propio equipo: los mánagers son los jugadores reales. Es una sola app con pantallas distintas según el rol.
+- **Mánager** (`manager`): jugador del equipo. Puja por jugadores, vende, fija su alineación, ve clasificaciones. Puede ficharse a sí mismo.
+- **Entrenador** (`coach`): crea partidos, pone notas y cierra el partido. No tiene equipo de fantasy.
+- **Admin** (`admin`): gestiona la plantilla real, precios, temporadas, rondas de mercado y roles. Puede jugar como mánager; no pone notas.
 
 ## Stack
 - **App**: Expo (React Native) + TypeScript (strict) + Expo Router (rutas en `src/app/`, ver AGENTS.md).
@@ -35,14 +35,18 @@ App móvil (iOS y Android) de fantasy para un equipo de balonmano real.
 
 ## Comandos
 - `npx expo start` — servidor de desarrollo (escanear QR con Expo Go). Usar `--tunnel` si el móvil no está en la misma red.
-- `npx supabase db push` — aplicar migraciones al proyecto remoto.
-- `npx supabase gen types typescript --linked > src/types/database.ts` — regenerar tipos.
+- `npx supabase db push --remote` — aplicar migraciones al proyecto remoto (sin `--remote`, el CLI v3 apunta al stack local de Docker).
+- `npx supabase gen types typescript --remote | Out-File -Encoding utf8NoBOM src/types/database.ts` — regenerar tipos (no usar `>` de PowerShell 5, que escribe UTF-16).
 - `npx expo lint` y `npx tsc --noEmit` — ejecutar ambos antes de dar una tarea por terminada.
 
-## Decisiones pendientes (preguntar antes de asumir)
-- Escala de notas (¿0–10? ¿con decimales?) y fórmula nota → puntos.
-- Presupuesto inicial de monedas, precios de jugadores y si los precios varían según rendimiento.
-- ¿Un jugador real puede estar en varias alineaciones a la vez o es exclusivo (mercado tipo subasta)?
-- Tamaño y formación de la alineación (7 titulares + banquillo, ¿portero obligatorio?).
-- ¿Qué pasa si varios entrenadores ponen nota al mismo jugador (media, uno solo)?
-- Ligas: ¿una sola liga para todo el club o varias ligas privadas?
+## Reglas del juego (decididas el 2026-11-10)
+- **Notas**: 0–10 en pasos de 0,5, una sola nota global por jugador y partido. Si puntúan varios entrenadores, cuenta la media. Los mánagers solo ven la media.
+- **Puntos**: puntos = nota media. Quien no juega suma 0.
+- **Alineación**: 1 portero (puntúa una vez) + 6 de ataque + 6 de defensa. Un jugador de campo puede ir en ambos lados y entonces suma dos veces. Los porteros solo van de portero.
+- **Mercado**: copias limitadas por jugador (configurable por liga). Las copias libres se adjudican en rondas de subasta a ciegas: puja mínima = precio actual, gana la más alta y en empate la más antigua. La venta es inmediata, al precio actual.
+- **Precios**: variables. Al cerrar un partido, `delta = redondeo(media − nota de referencia) × paso`, acotado y con precio mínimo. Parámetros en `seasons`.
+- **Bloqueo**: desde `lock_at` hasta que el entrenador cierra el partido no se puede pujar, vender ni cambiar la alineación. La alineación vigente se mantiene de una jornada a otra.
+- **Jornada = partido** (tabla `matches`).
+- **Ligas**: una sola liga por temporada (`is_default`); el esquema admite ligas privadas más adelante.
+- Valores por defecto: 100 monedas, 8 copias por jugador, plantilla máxima de 10. Son columnas de `seasons`/`leagues`, se cambian sin migración.
+- Las RPC devuelven errores como códigos (`MARKET_CLOSED`, `BID_BELOW_PRICE`…); la app los traduce.

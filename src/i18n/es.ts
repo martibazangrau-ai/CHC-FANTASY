@@ -1,0 +1,47 @@
+export const es = {
+  app: {
+    name: 'CHC Fantasy',
+    tagline: 'El fantasy de nuestro equipo',
+  },
+  auth: {
+    email: 'Correo electrónico',
+    password: 'Contraseña',
+    displayName: 'Nombre',
+    displayNamePlaceholder: 'Cómo te verán los demás',
+    signIn: 'Entrar',
+    signUp: 'Crear cuenta',
+    signUpTitle: 'Nueva cuenta',
+    signOut: 'Cerrar sesión',
+    noAccount: '¿No tienes cuenta?',
+    haveAccount: '¿Ya tienes cuenta?',
+    passwordHint: 'Mínimo 6 caracteres',
+    confirmEmailTitle: 'Revisa tu correo',
+    confirmEmailBody:
+      'Te hemos enviado un enlace para confirmar tu cuenta. Cuando la confirmes, vuelve aquí y entra con tu correo y contraseña.',
+    backToSignIn: 'Volver a entrar',
+  },
+  roles: {
+    manager: 'Mánager',
+    coach: 'Entrenador',
+    admin: 'Admin',
+  },
+  home: {
+    title: 'Inicio',
+    greeting: (name: string) => `Hola, ${name}`,
+    roleLabel: 'Rol',
+    comingSoon: 'Aquí irán el mercado, tu alineación y la clasificación.',
+    comingSoonCoach: 'Aquí irán los partidos y las notas.',
+  },
+  errors: {
+    generic: 'Algo ha fallado. Inténtalo de nuevo.',
+    network: 'No hay conexión. Comprueba tu internet.',
+    required: 'Rellena todos los campos.',
+    invalidCredentials: 'Correo o contraseña incorrectos.',
+    emailNotConfirmed: 'Aún no has confirmado tu correo.',
+    userAlreadyExists: 'Ya existe una cuenta con ese correo.',
+    weakPassword: 'La contraseña es demasiado corta o débil.',
+    invalidEmail: 'El correo no es válido.',
+    rateLimit: 'Demasiados intentos. Espera un momento.',
+    signupDisabled: 'El registro está desactivado.',
+  },
+} as const;
