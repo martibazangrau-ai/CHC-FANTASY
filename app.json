@@ -37,6 +37,17 @@
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
-    }
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "c0ec6e52-95e5-47e6-97c3-69ab6f00be1c"
+      }
+    },
+    "owner": "wilfy16s-team"
   }
 }
