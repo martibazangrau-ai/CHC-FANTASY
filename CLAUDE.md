@@ -44,7 +44,7 @@ Solo juega la gente del propio equipo: los mánagers son los jugadores reales. E
 - **Puntos**: puntos = nota media. Quien no juega suma 0.
 - **Alineación**: 1 portero (puntúa una vez) + 6 de ataque + 6 de defensa. Un jugador de campo puede ir en ambos lados y entonces suma dos veces. Los porteros solo van de portero.
 - **Mercado**: copias limitadas por jugador (configurable por liga). Las copias libres se adjudican en rondas de subasta a ciegas: puja mínima = precio actual, gana la más alta y en empate la más antigua. La venta es inmediata, al precio actual.
-- **Precios**: variables. Al cerrar un partido, `delta = redondeo(media − nota de referencia) × paso`, acotado y con precio mínimo. Parámetros en `seasons`.
+- **Precios**: todos los jugadores empiezan con el mismo precio (`seasons.default_player_price`, 10 por defecto; el alta va por la RPC `admin_add_player`). Después son variables. Al cerrar un partido, `delta = redondeo(media − nota de referencia) × paso`, acotado y con precio mínimo. Parámetros en `seasons`.
 - **Bloqueo**: desde `lock_at` hasta que el entrenador cierra el partido no se puede pujar, vender ni cambiar la alineación. La alineación vigente se mantiene de una jornada a otra.
 - **Jornada = partido** (tabla `matches`).
 - **Ligas**: una sola liga por temporada (`is_default`); el esquema admite ligas privadas más adelante.

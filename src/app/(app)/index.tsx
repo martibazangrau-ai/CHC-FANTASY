@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import { useState } from 'react';
 import { ActivityIndicator, ScrollView, StyleSheet } from 'react-native';
 
@@ -39,6 +40,17 @@ export default function HomeScreen() {
           <ThemedText themeColor="textSecondary">
             {profile.role === 'coach' ? strings.home.comingSoonCoach : strings.home.comingSoon}
           </ThemedText>
+          {profile.role === 'admin' ? (
+            <>
+              <ThemedText type="smallBold" themeColor="textSecondary">
+                {strings.admin.sectionTitle}
+              </ThemedText>
+              <PrimaryButton
+                title={strings.admin.playersLink}
+                onPress={() => router.push('/admin/players')}
+              />
+            </>
+          ) : null}
         </>
       ) : (
         <ActivityIndicator />

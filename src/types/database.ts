@@ -498,6 +498,7 @@ export type Database = {
       seasons: {
         Row: {
           created_at: string
+          default_player_price: number
           id: string
           initial_budget: number
           is_active: boolean
@@ -509,6 +510,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string
+          default_player_price?: number
           id?: string
           initial_budget?: number
           is_active?: boolean
@@ -520,6 +522,7 @@ export type Database = {
         }
         Update: {
           created_at?: string
+          default_player_price?: number
           id?: string
           initial_budget?: number
           is_active?: boolean
@@ -791,6 +794,14 @@ export type Database = {
       }
     }
     Functions: {
+      admin_add_player: {
+        Args: {
+          p_full_name: string
+          p_position: Database["public"]["Enums"]["player_position"]
+          p_shirt_number?: number
+        }
+        Returns: string
+      }
       admin_set_price: {
         Args: { p_player_id: string; p_price: number; p_season_id: string }
         Returns: undefined
