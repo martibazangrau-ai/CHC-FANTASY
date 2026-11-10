@@ -14,7 +14,7 @@ import type { Enums } from '@/types/database';
 
 type Position = Enums<'player_position'>;
 
-const POSITIONS: Position[] = ['portero', 'extremo', 'lateral', 'central', 'pivote'];
+const POSITIONS: Position[] = ['portero', 'extremo', 'primera_linea', 'pivote'];
 
 export default function AdminPlayerScreen() {
   const theme = useTheme();

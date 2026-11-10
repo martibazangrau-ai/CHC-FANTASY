@@ -143,16 +143,19 @@ export type Database = {
         Row: {
           player_id: string
           slot: Database["public"]["Enums"]["lineup_slot"]
+          slot_index: number
           team_id: string
         }
         Insert: {
           player_id: string
           slot: Database["public"]["Enums"]["lineup_slot"]
+          slot_index: number
           team_id: string
         }
         Update: {
           player_id?: string
           slot?: Database["public"]["Enums"]["lineup_slot"]
+          slot_index?: number
           team_id?: string
         }
         Relationships: [
@@ -848,7 +851,7 @@ export type Database = {
       lineup_slot: "goalkeeper" | "attack" | "defense"
       market_round_status: "open" | "resolved"
       match_status: "scheduled" | "closed"
-      player_position: "portero" | "extremo" | "lateral" | "central" | "pivote"
+      player_position: "portero" | "extremo" | "primera_linea" | "pivote"
       transaction_type: "initial" | "auction_win" | "sale" | "adjustment"
       user_role: "manager" | "coach" | "admin"
     }
@@ -985,7 +988,7 @@ export const Constants = {
       lineup_slot: ["goalkeeper", "attack", "defense"],
       market_round_status: ["open", "resolved"],
       match_status: ["scheduled", "closed"],
-      player_position: ["portero", "extremo", "lateral", "central", "pivote"],
+      player_position: ["portero", "extremo", "primera_linea", "pivote"],
       transaction_type: ["initial", "auction_win", "sale", "adjustment"],
       user_role: ["manager", "coach", "admin"],
     },
